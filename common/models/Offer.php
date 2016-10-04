@@ -8,16 +8,19 @@
     use yii\db\ActiveRecord;
 
     /**
-     * This is the model class for table "{{%category}}".
+     * This is the model class for table "{{%offer}}".
      *
-     * @property integer $id
-     * @property string  $cover
-     * @property integer $createdAt
-     * @property integer $updatedAt
+     * @property integer   $id
+     * @property integer   $categoryId
+     * @property string    $cover
+     * @property string    $gallery
+     * @property integer   $createdAt
+     * @property integer   $updatedAt
      *
-     * @property Offer[] $offers
+     * @property Category  $category
+     * @property Product[] $products
      */
-    class Category extends ActiveRecord{
+    class Offer extends ActiveRecord{
 
         public function behaviors(){
             return [
@@ -25,10 +28,11 @@
                     'class'           => MultilingualBehavior::className(),
                     'languages'       => Lang::getLanguagesAsCodeTitle(),
                     'defaultLanguage' => Yii::$app->sourceLanguage,
-                    'langForeignKey'  => 'categoryId',
-                    'tableName'       => "{{%category_lang}}",
+                    'langForeignKey'  => 'offerId',
+                    'tableName'       => "{{%offer_lang}}",
                     'attributes'      => [
                         'title',
+                        'advantages'
                     ]
                 ],
                 [
@@ -48,7 +52,7 @@
          * @inheritdoc
          */
         public static function tableName(){
-            return '{{%category}}';
+            return '{{%offer}}';
         }
 
         /**
@@ -58,22 +62,34 @@
             return [
                 [
                     [
-                        'createdAt',
-                        'updatedAt'
-                    ],
-                    'required'
-                ],
-                [
-                    [
+                        'categoryId',
                         'createdAt',
                         'updatedAt'
                     ],
                     'integer'
                 ],
                 [
+                    ['gallery'],
+                    'string'
+                ],
+                [
+                    [
+                        'createdAt',
+                        'updatedAt'
+                    ],
+                    'required'
+                ],
+                [
                     ['cover'],
                     'string',
                     'max' => 255
+                ],
+                [
+                    ['categoryId'],
+                    'exist',
+                    'skipOnError'     => true,
+                    'targetClass'     => Category::className(),
+                    'targetAttribute' => ['categoryId' => 'id']
                 ],
             ];
         }
@@ -83,17 +99,27 @@
          */
         public function attributeLabels(){
             return [
-                'id'        => 'ID',
-                'cover'     => 'Cover',
-                'createdAt' => 'Created At',
-                'updatedAt' => 'Updated At',
+                'id'         => 'ID',
+                'categoryId' => 'Category ID',
+                'cover'      => 'Cover',
+                'gallery'    => 'Gallery',
+                'createdAt'  => 'Created At',
+                'updatedAt'  => 'Updated At',
             ];
         }
 
         /**
          * @return \yii\db\ActiveQuery
          */
-        public function getOffers(){
-            return $this->hasMany(Offer::className(), ['categoryId' => 'id']);
+        public function getCategory(){
+            return $this->hasOne(Category::className(), ['id' => 'categoryId']);
+        }
+
+
+        /**
+         * @return \yii\db\ActiveQuery
+         */
+        public function getProducts(){
+            return $this->hasMany(Product::className(), ['offerId' => 'id']);
         }
     }
