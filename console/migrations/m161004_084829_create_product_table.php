@@ -20,6 +20,10 @@
                 'id'      => $this->primaryKey(),
                 'offerId' => $this->integer(),
                 'cover'   => $this->string(),
+                'createdAt' => $this->integer()
+                                    ->notNull(),
+                'updatedAt' => $this->integer()
+                                    ->notNull(),
             ], $tableOptions);
 
             $this->addForeignKey('OfferId_FK', '{{%product}}','offerId', '{{%offer}}', 'id', 'CASCADE', 'CASCADE');

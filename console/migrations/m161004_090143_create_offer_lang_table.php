@@ -23,6 +23,10 @@
                                      ->notNull(),
                 'title'      => $this->string(),
                 'advantages' => $this->text(),
+                'createdAt' => $this->integer()
+                                    ->notNull(),
+                'updatedAt' => $this->integer()
+                                    ->notNull(),
             ], $tableOptions);
 
             $this->createIndex('OfferLangIndex', '{{%offer_lang}}', 'language');

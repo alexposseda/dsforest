@@ -22,6 +22,10 @@
                 'language'   => $this->string(6)
                                      ->notNull(),
                 'title'      => $this->string(12),
+                'createdAt' => $this->integer()
+                                    ->notNull(),
+                'updatedAt' => $this->integer()
+                                    ->notNull(),
             ], $tableOptions);
 
             $this->createIndex('CategoryLangIndex', '{{%category_lang}}', 'language');
