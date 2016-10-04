@@ -19,7 +19,7 @@
     <div class="body-content">
         <?php
             $model = Category::findOne(1);
-            
+            var_dump($model->title);
 //            $langModel = new \common\models\CategoryLang();
             
             var_dump($model->getTranslations()->all());
