@@ -4,6 +4,7 @@
     
     use Yii;
     use yii\db\ActiveRecord;
+    use yii\helpers\ArrayHelper;
 
     /**
      * This is the model class for table "{{%lang}}".
@@ -71,6 +72,10 @@
                 'createdAt' => 'Created At',
                 'updatedAt' => 'Updated At',
             ];
+        }
+
+        public static function getLanguagesAsCodeTitle(){
+            return ArrayHelper::map(self::find()->all(), 'langCode', 'langTitle');
         }
         
     }
