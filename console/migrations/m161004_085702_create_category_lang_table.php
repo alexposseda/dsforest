@@ -21,7 +21,7 @@
                 'categoryId' => $this->integer(),
                 'language'   => $this->string(6)
                                      ->notNull(),
-                'title'      => $this->string(12),
+                'title'      => $this->string(),
                 'createdAt' => $this->integer()
                                     ->notNull(),
                 'updatedAt' => $this->integer()

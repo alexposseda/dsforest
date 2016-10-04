@@ -19,7 +19,7 @@
             $this->createTable('{{%product_lang}}', [
                 'id'        => $this->primaryKey(),
                 'productId' => $this->integer(),
-                'language'  => $this->string()
+                'language'  => $this->string(6)
                                     ->notNull(),
                 'title'     => $this->string(),
                 'createdAt' => $this->integer()

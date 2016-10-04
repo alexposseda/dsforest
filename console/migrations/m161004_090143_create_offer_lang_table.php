@@ -19,7 +19,7 @@
             $this->createTable('{{%offer_lang}}', [
                 'id'         => $this->primaryKey(),
                 'offerId'    => $this->integer(),
-                'language'   => $this->string()
+                'language'   => $this->string(6)
                                      ->notNull(),
                 'title'      => $this->string(),
                 'advantages' => $this->text(),

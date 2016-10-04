@@ -18,10 +18,10 @@
 
             $this->createTable('{{%lang}}', [
                 'id'        => $this->primaryKey(),
-                'langCode'  => $this->string()
+                'langCode'  => $this->string(6)
                                     ->notNull()
                                     ->unique(),
-                'langTitle' => $this->string()
+                'langTitle' => $this->string(12)
                                     ->notNull(),
                 'createdAt' => $this->integer()
                                     ->notNull(),
