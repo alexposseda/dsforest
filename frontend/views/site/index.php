@@ -2,6 +2,8 @@
     
     /* @var $this yii\web\View */
     
+    use common\models\Category;
+    
     $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
@@ -15,7 +17,13 @@
     </div>
     
     <div class="body-content">
-        
+        <?php
+            $model = Category::findOne(1);
+            
+//            $langModel = new \common\models\CategoryLang();
+            
+            var_dump($model->getTranslations()->all());
+        ?>
     
     </div>
 </div>

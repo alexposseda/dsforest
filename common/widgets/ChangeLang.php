@@ -29,7 +29,7 @@
             }else{
                 if(isset($options['wrapperOptions'])){
                     $wrapperOptions = $options['wrapperOptions'];
-                    unset($options['wrapperOptions']);
+                    ArrayHelper::remove($options, 'wrapperOptions');
                 }else{
                     $wrapperOptions = [];
                 }
