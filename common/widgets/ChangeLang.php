@@ -14,8 +14,7 @@
         
         public function init(){
             parent::init();
-            $this->_languages = ArrayHelper::map(Lang::find()
-                                                     ->all(), 'langCode', 'langTitle');
+            $this->_languages = Lang::getLanguagesAsCodeTitle();
         }
         
         public function run(){
