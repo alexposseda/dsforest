@@ -109,3 +109,35 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+.category-icon, .available-lang{
+    padding: 0!important;
+}
+.category-icon-holder {
+    width: 195px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    top: 60px;
+}
+
+.available-lang-holder{
+    width: 162px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    top: 60px;
+}
+.photo-wrap{
+    overflow: hidden;
+}
+.photo-wrap img{
+    width: 100%;
+}
+
+.img-wrap{
+    height: 150px;
+    overflow: hidden;
+}
+.category-cover-wrap{
+    height: 200px;
+    overflow: hidden;
+    text-align: center;
+}

@@ -1,12 +1,13 @@
 <?php
-
+    
     namespace common\models;
-
-    use omgdef\multilingual\MultilingualBehavior;
+    
+    use common\components\AvailableLangs;
+    use common\components\MultiLangBehavior;
     use Yii;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
-
+    
     /**
      * This is the model class for table "{{%category}}".
      *
@@ -18,11 +19,11 @@
      * @property Offer[] $offers
      */
     class Category extends ActiveRecord{
-
+        
         public function behaviors(){
             return [
-                'ml' => [
-                    'class'           => MultilingualBehavior::className(),
+                'ml'                => [
+                    'class'           => MultiLangBehavior::className(),
                     'languages'       => Lang::getLanguagesAsCodeTitle(),
                     'defaultLanguage' => Yii::$app->sourceLanguage,
                     'langForeignKey'  => 'categoryId',
@@ -31,7 +32,7 @@
                         'title',
                     ]
                 ],
-                [
+                'timestampBehavior' => [
                     'class'      => TimestampBehavior::className(),
                     'attributes' => [
                         ActiveRecord::EVENT_BEFORE_INSERT => [
@@ -40,28 +41,33 @@
                         ],
                         ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
                     ]
+                ],
+                'availableLangs'    => [
+                    'class' => AvailableLangs::className(),
                 ]
             ];
         }
-
+        
         /**
          * @inheritdoc
          */
         public static function tableName(){
             return '{{%category}}';
         }
-
+        
         /**
          * @inheritdoc
          */
         public function rules(){
             return [
                 [
-                    [
-                        'createdAt',
-                        'updatedAt'
-                    ],
-                    'required'
+                    'title',
+                    'string'
+                ],
+                [
+                    'title',
+                    'default',
+                    'value' => null
                 ],
                 [
                     [
@@ -71,13 +77,13 @@
                     'integer'
                 ],
                 [
-                    ['cover'],
+                    ['cover', 'title'],
                     'string',
                     'max' => 255
                 ],
             ];
         }
-
+        
         /**
          * @inheritdoc
          */
@@ -89,7 +95,7 @@
                 'updatedAt' => 'Updated At',
             ];
         }
-
+        
         /**
          * @return \yii\db\ActiveQuery
          */

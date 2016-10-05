@@ -3,6 +3,8 @@
     /* @var $this yii\web\View */
     
     use common\models\Category;
+    use yii\behaviors\TimestampBehavior;
+    use yii\db\ActiveRecord;
     
     $this->title = 'My Yii Application';
 ?>
@@ -21,8 +23,22 @@
             $model = Category::findOne(1);
             var_dump($model->title);
 //            $langModel = new \common\models\CategoryLang();
-            
-            var_dump($model->getTranslations()->all());
+//            $langModels = $model->getTranslations()->all();
+//            foreach($langModels as $key => $model){
+//                $model->attachBehavior('timestampBehavior' ,[
+//                                   'class'      => TimestampBehavior::className(),
+//                                   'attributes' => [
+//                                       ActiveRecord::EVENT_BEFORE_INSERT => [
+//                                           'createdAt',
+//                                           'updatedAt'
+//                                       ],
+//                                       ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
+//                                   ]
+//                               ]);
+//            }
+            var_dump($model->isAvailableTranslate(Yii::$app->language));
+            var_dump($model->availableLangs);
+            var_dump($model->necessaryLangs);
         ?>
     
     </div>

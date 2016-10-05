@@ -25,6 +25,10 @@ return [
                         'app/error' => 'error.php',
                     ],
                 ],
+                'category' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/translations'
+                ],
             ],
         ],
     ],
