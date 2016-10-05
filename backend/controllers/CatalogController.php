@@ -6,11 +6,8 @@
     use common\models\Offer;
     use common\models\Product;
     use Yii;
-    use yii\behaviors\TimestampBehavior;
-    use yii\db\ActiveRecord;
     use yii\filters\AccessControl;
     use yii\web\Controller;
-    use yii\web\HttpException;
     use yii\web\NotFoundHttpException;
     
     class CatalogController extends Controller{
@@ -48,7 +45,7 @@
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
                 
-                Yii::$app->session->set('fl', ['success' => 'Категория успешно создана']);
+                Yii::$app->session->set('fl', ['success' => Yii::t('app/success', 'Category successfully created')]);
                 $this->redirect(['catalog/view-category', 'id' => $model->id]);
             }
             
@@ -64,7 +61,7 @@
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
         
-                Yii::$app->session->set('fl', ['success' => 'Категория успешно обновлена']);
+                Yii::$app->session->set('fl', ['success' => Yii::t('app/success', 'Category successfully updated')]);
                 return $this->redirect(['catalog/view-category', 'id' => $model->id]);
             }
             
@@ -77,11 +74,11 @@
         public function actionDeleteCategory($id){
             $model = $this->findModel('category', 'id', $id);
             if($model->delete()){
-                Yii::$app->session->set('fl', ['success' => 'Категория успешно удалена']);
+                Yii::$app->session->set('fl', ['success' => Yii::t('app/success', 'Category successfully deleted')]);
                 return $this->redirect(['catalog/index']);
             }
     
-            Yii::$app->session->set('fl', ['error' => 'Ошибка удаления....']);
+            Yii::$app->session->set('fl', ['error' => Yii::t('app/error', 'Failed to delete')]);
             return $this->redirect(['catalog/view-category', 'id' => $id]);
             
         }
@@ -147,7 +144,7 @@
             $modelName = '\common\models\\'.ucfirst($modelName);
             $model     = (new $modelName())->findOne([$attribute => $value]);
             if(is_null($model)){
-                throw new NotFoundHttpException('The requested page does not exist.');
+                throw new NotFoundHttpException(Yii::t('app/error','The requested page does not exist'));
             }
             
             return $model;

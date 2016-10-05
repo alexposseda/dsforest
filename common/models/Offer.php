@@ -2,7 +2,7 @@
 
     namespace common\models;
 
-    use omgdef\multilingual\MultilingualBehavior;
+    use common\components\MultiLangBehavior;
     use Yii;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
@@ -25,7 +25,7 @@
         public function behaviors(){
             return [
                 'ml' => [
-                    'class'           => MultilingualBehavior::className(),
+                    'class'           => MultiLangBehavior::className(),
                     'languages'       => Lang::getLanguagesAsCodeTitle(),
                     'defaultLanguage' => Yii::$app->sourceLanguage,
                     'langForeignKey'  => 'offerId',
@@ -69,18 +69,11 @@
                     'integer'
                 ],
                 [
-                    ['gallery'],
+                    ['gallery', 'advantages'],
                     'string'
                 ],
                 [
-                    [
-                        'createdAt',
-                        'updatedAt'
-                    ],
-                    'required'
-                ],
-                [
-                    ['cover'],
+                    ['cover', 'title'],
                     'string',
                     'max' => 255
                 ],
@@ -101,8 +94,8 @@
             return [
                 'id'         => 'ID',
                 'categoryId' => 'Category ID',
-                'cover'      => 'Cover',
-                'gallery'    => 'Gallery',
+                'cover'      => Yii::t('app','Cover'),
+                'gallery'    => Yii::t('app','Gallery'),
                 'createdAt'  => 'Created At',
                 'updatedAt'  => 'Updated At',
             ];

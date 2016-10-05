@@ -62,10 +62,6 @@
             return [
                 [
                     'title',
-                    'string'
-                ],
-                [
-                    'title',
                     'default',
                     'value' => null
                 ],
@@ -77,7 +73,10 @@
                     'integer'
                 ],
                 [
-                    ['cover', 'title'],
+                    [
+                        'cover',
+                        'title'
+                    ],
                     'string',
                     'max' => 255
                 ],
@@ -90,7 +89,7 @@
         public function attributeLabels(){
             return [
                 'id'        => 'ID',
-                'cover'     => 'Cover',
+                'cover'     => Yii::t('app', 'Cover'),
                 'createdAt' => 'Created At',
                 'updatedAt' => 'Updated At',
             ];

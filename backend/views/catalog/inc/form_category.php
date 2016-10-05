@@ -24,7 +24,7 @@
                         'label'   => $languages[$langModel->language],
                         'content' => $form->field($model,
                                                   ($langModel->language == Yii::$app->sourceLanguage) ? 'title' : 'title_'.$langModel->language)
-                                          ->label(Yii::t('category', 'Title', [], $langModel->language)),
+                                          ->label(Yii::t('app', 'Title', [], $langModel->language)),
                         'active'  => (Yii::$app->language == $langModel->language) ? true : false,
                     ];
                 }
@@ -35,7 +35,7 @@
                         'content' => $form->field($model,
                                                   ($langModel->language == Yii::$app->sourceLanguage) ? 'title' : 'title_'.$langModel->language)
                                           ->textInput(['value' => $langModel->title])
-                                          ->label(Yii::t('category', 'Title', [], $langModel->language)),
+                                          ->label(Yii::t('app', 'Title', [], $langModel->language)),
                         'active'  => (Yii::$app->language == $langModel->language) ? true : false,
                     ];
                 }
@@ -53,11 +53,11 @@
                                           'files'         => ($model->isNewRecord) ? '' : $model->cover,
                                           'targetInputId' => 'categoryCover',
                                           'maxFiles'      => 1,
-                                          'title'         => Yii::t('category', 'Cover')
+                                          'title'         => Yii::t('app', 'Cover')
                                       ]) ?>
     </div>
     
-    <?= Html::submitButton(($model->isNewRecord) ? Yii::t('category', 'Create Category') : Yii::t('category', 'Update Category'),
+    <?= Html::submitButton(($model->isNewRecord) ? Yii::t('app', 'Create Category') : Yii::t('app', 'Update Category'),
                            ['class' => 'btn '.(($model->isNewRecord) ? 'btn-primary' : 'btn-warning')]) ?>
     <?php ActiveForm::end() ?>
 </div>

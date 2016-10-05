@@ -1,12 +1,12 @@
 <?php
-
+    
     namespace common\models;
-
+    
     use omgdef\multilingual\MultilingualBehavior;
     use Yii;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
-
+    
     /**
      * This is the model class for table "{{%product}}".
      *
@@ -19,7 +19,7 @@
      * @property Offer   $offer
      */
     class Product extends ActiveRecord{
-
+        
         public function behaviors(){
             return [
                 'ml' => [
@@ -44,14 +44,14 @@
                 ]
             ];
         }
-
+        
         /**
          * @inheritdoc
          */
         public static function tableName(){
             return '{{%product}}';
         }
-
+        
         /**
          * @inheritdoc
          */
@@ -86,7 +86,7 @@
                 ],
             ];
         }
-
+        
         /**
          * @inheritdoc
          */
@@ -94,17 +94,17 @@
             return [
                 'id'        => 'ID',
                 'offerId'   => 'Offer ID',
-                'cover'     => 'Cover',
+                'cover'     => Yii::t('app', 'Cover'),
                 'createdAt' => 'Created At',
                 'updatedAt' => 'Updated At',
             ];
         }
-
+        
         /**
          * @return \yii\db\ActiveQuery
          */
         public function getOffer(){
             return $this->hasOne(Offer::className(), ['id' => 'offerId']);
         }
-
+        
     }

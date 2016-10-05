@@ -1,7 +1,7 @@
 <?php
     /**
-     * @var \yii\web\View                                  $this
-     * @var \common\models\Category | \common\models\Offer $model
+     * @var \yii\web\View           $this
+     * @var \common\models\Category $model
      */
     use yii\alexposseda\fileManager\FileManager;
     use yii\helpers\Url;
@@ -15,12 +15,12 @@
     <div class="col-lg-2 text-center category-icon">
         <div class="category-icon-holder" data-spy="affix" data-offset-top="60" data-offset-bottom="70">
             <div>
-                <?php if(!empty($categoryCover)):?>
+                <?php if(!empty($categoryCover)): ?>
                     <img class="img-responsive img-thumbnail" src="<?= FileManager::getInstance()
                                                                                   ->getStorageUrl().$categoryCover[0] ?>">
-                <?php else:?>
-                    <img class="img-responsive img-thumbnail" src="<?= Url::to('/img/nopic.jpg', true)?>">
-                <?php endif;?>
+                <?php else: ?>
+                    <img class="img-responsive img-thumbnail" src="<?= Url::to('/img/nopic.jpg', true) ?>">
+                <?php endif; ?>
             </div>
             <br>
             <div class="list-group">
@@ -28,7 +28,7 @@
                     <a href="<?= Url::to([
                                              'catalog/create-offer',
                                              'categoryId' => $model->id
-                                         ]) ?>" class="list-group-item list-group-item-success"><?= Yii::t('app', 'Add offer') ?></a>
+                                         ]) ?>" class="list-group-item list-group-item-success"><?= Yii::t('app', 'Add Offer') ?></a>
                 <?php else: ?>
                     <a href="<?= Url::to([
                                              'catalog/update-category',
@@ -53,19 +53,19 @@
                                               'id' => $model->id
                                           ]) ?>"
                         data-method="POST"
-                        data-confirm="<?= Yii::t('app',
+                        data-confirm="<?= Yii::t('app/info',
                                                  'Removing a category will delete all the related products and offers. You confirm the removal?') ?>"
                     ><?= Yii::t('app', 'Delete Category') ?></a>
                 </div>
                 <?php if($model->isAvailableTranslate(Yii::$app->language)): ?>
                     <h1><?= $model->title ?></h1>
                     <?php if(empty($model->offers)): ?>
-                        <div class="alert alert-info"><?= Yii::t('app', 'There are no results for this category offers') ?></div>
+                        <div class="alert alert-info"><?= Yii::t('app/info', 'No offers found') ?></div>
                     <?php else: ?>
                         <?php
                         $offers = $model->getOffers()
-                                           ->orderBy(['id' => SORT_DESC])
-                                           ->all();
+                                        ->orderBy(['id' => SORT_DESC])
+                                        ->all();
                         foreach($offers as $offer):
                             ?>
                             <?= $this->render('inc/_offer', ['offer' => $offer]) ?>
@@ -76,11 +76,11 @@
                 <?php else: ?>
                     <div class="clearfix"></div>
                     <br>
-                    <div class="alert alert-danger"><?= Yii::t('app', 'There is no data for this language!') ?></div>
+                    <div class="alert alert-danger"><?= Yii::t('app/error', 'No data for this language!') ?></div>
                 <?php endif; ?>
             </div>
             <div class="col-lg-2 text-center available-lang">
-                <?= $this->render('_availableLangList', ['model' => $model])?>
+                <?= $this->render('_availableLangList', ['model' => $model]) ?>
             </div>
         </div>
     </div>

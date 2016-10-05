@@ -3,7 +3,7 @@
     namespace common\components;
     
     use omgdef\multilingual\MultilingualBehavior;
-    use yii\helpers\ArrayHelper;
+    use Yii;
 
     class MultiLangBehavior extends MultilingualBehavior{
         public function createLangClass(){
@@ -43,7 +43,7 @@
                     return true;
                 }
             }
-            \Yii::$app->session->setFlash('error', 'Заполните хотя бы одно название!');
+            Yii::$app->session->setFlash('error', Yii::t('app/error', 'Fill at least one field title'));
             return false;
         }
     
