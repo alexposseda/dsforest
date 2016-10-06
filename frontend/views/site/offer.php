@@ -36,8 +36,8 @@
 </section>
 <?php endif;?>
 <?php
-    if(!empty($offer->description)):
-        $advantages = explode("\n", $offer->description);
+    if(!empty($offer->advantages)):
+        $advantages = explode("\n", $offer->advantages);
         ?>
 <section class="section">
     <h2 class="black white-text title center-align no-margin" id="advantage-title"><?= Yii::t('app', 'Advantages')?></h2>

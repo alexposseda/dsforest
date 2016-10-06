@@ -1,14 +1,13 @@
 <?php
     /**
-     * @var \yii\web\View $this
+     * @var \yii\web\View          $this
      * @var \common\models\Product $model
      */
     use yii\alexposseda\fileManager\FileManager;
     use yii\helpers\Url;
-    
+
     $this->params['breadcrumbs'][] = [
-        'label' => (!empty($model->offer->category->title)) ? Yii::t('app', 'Category').': '.$model->offer->category->title : Yii::t('app',
-                                                                                                                                     'Category').': '.$model->offer->category->id,
+        'label' => (!empty($model->offer->category->title)) ? Yii::t('app', 'Category').': '.$model->offer->category->title : Yii::t('app', 'Category').': '.$model->offer->category->id,
         'url'   => Url::to([
                                'catalog/view-category',
                                'id' => $model->offer->category->id
@@ -22,6 +21,8 @@
                            ])
     ];
     $this->params['breadcrumbs'][] = Yii::t('app', 'Product').': '.$this->title;
+
+    $productCover = json_decode($model->cover);
 ?>
 <div class="row">
     <div class="col-lg-10">
