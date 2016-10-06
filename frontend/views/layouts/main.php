@@ -106,7 +106,7 @@
                                     ?>
                                     <li><a class="active waves-effect" href="<?= Url::to([
                                                                                              'site/catalog',
-                                                                                             'category_id' => $category->id
+                                                                                             'categoryId' => $category->id
                                                                                          ]) ?>"><?= $category->title ?></a></li>
                                     <?php
                                 endif;
