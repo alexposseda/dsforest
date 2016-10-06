@@ -124,5 +124,18 @@
             }
             return parent::beforeDelete();
         }
+        
+        public function getAvailableOffers(){
+            $offers = $this->offers;
+            $availableOffers = [];
+            if(!empty($offers)){
+                foreach($offers as $offer){
+                    if($offer->translation){
+                        $availableOffers[] = $offer;
+                    }
+                }
+            }
+            return $availableOffers;
+        }
     
     }

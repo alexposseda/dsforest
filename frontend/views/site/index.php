@@ -1,45 +1,71 @@
 <?php
+    /**
+     * @var \yii\web\View             $this
+     * @var \common\models\Category[] $categories
+     */
     
-    /* @var $this yii\web\View */
+    use frontend\assets\HomePageAsset;
+    use yii\helpers\Url;
     
-    use common\models\Category;
-    use yii\behaviors\TimestampBehavior;
-    use yii\db\ActiveRecord;
+    HomePageAsset::register($this);
     
-    $this->title = 'My Yii Application';
+    $this->title = 'DsForest Trade';
+
 ?>
-<div class="site-index">
-    
-    <div class="jumbotron">
-        <h1><?= Yii::t('app', 'Test') ?></h1>
-        
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-        
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+<section class="section catalog no-padding">
+    <h2 class="black white-text center-align title no-margin" id="catalog-title"><?= Yii::t('info', 'A wide range of wood products') ?></h2>
+    <?php if(!empty($categories)): ?>
+        <div class="row mygrid mygrid-centered">
+            <?php
+                foreach($categories as $category):
+                    if($category->isAvailableTranslate(Yii::$app->language)):
+                        echo $this->render('_small', [
+                            'model' => $category,
+                            'url'   => Url::to([
+                                                   'site/catalog',
+                                                   'category_id' => $category->id
+                                               ])
+                        ]);
+                    endif;
+                endforeach;
+            ?>
+        </div>
+    <?php else: ?>
+        <div class="card-panel red-text center-align"><?= Yii::t('info', 'No category found') ?></div>
+    <?php endif; ?>
+</section>
+<section class="section contacts">
+    <h2 class="black white-text center-align title no-margin" id="contacts-title"><?= Yii::t('app', 'Contacts') ?></h2>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <h3>Представительство в Украине</h3>
+                <p class="address flow-text">"ГК Форест" Украина,<br>65007 г.Одесса,<br>Болгарская 20</p>
+                <div class="info">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
+                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
+                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
+                        <li class="flow-text"><i class="material-icons">email</i> example@mail.com</li>
+                        <li class="flow-text"><i class="material-icons">link</i> www.example.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col s12 m6 l6">
+                <h3>Представительство в Чехии</h3>
+                <p class="address flow-text">"ГК Форест" Украина,<br>65007 г.Одесса,<br>Болгарская 20</p>
+                <div class="info">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
+                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
+                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
+                        <li class="flow-text"><i class="material-icons">email</i> example@mail.com</li>
+                        <li class="flow-text"><i class="material-icons">link</i> www.example.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="body-content">
-        <?php
-            $model = Category::findOne(1);
-            var_dump($model->title);
-//            $langModel = new \common\models\CategoryLang();
-//            $langModels = $model->getTranslations()->all();
-//            foreach($langModels as $key => $model){
-//                $model->attachBehavior('timestampBehavior' ,[
-//                                   'class'      => TimestampBehavior::className(),
-//                                   'attributes' => [
-//                                       ActiveRecord::EVENT_BEFORE_INSERT => [
-//                                           'createdAt',
-//                                           'updatedAt'
-//                                       ],
-//                                       ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
-//                                   ]
-//                               ]);
-//            }
-            var_dump($model->isAvailableTranslate(Yii::$app->language));
-            var_dump($model->availableLangs);
-            var_dump($model->necessaryLangs);
-        ?>
-    
-    </div>
-</div>
+</section>

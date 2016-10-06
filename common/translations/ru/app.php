@@ -33,5 +33,6 @@
         'Request password reset' => 'Запрос на сброс пароля',
         'Send' => 'Отправить',
         'Save' => 'Сохранить',
-        'Reset password' => 'Сброс пароля'
+        'Reset password' => 'Сброс пароля',
+        'Contacts' => 'Контакты',
     ];

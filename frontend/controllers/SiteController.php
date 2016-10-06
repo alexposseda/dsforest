@@ -1,213 +1,81 @@
 <?php
-namespace frontend\controllers;
+    namespace frontend\controllers;
 
-use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
-
-/**
- * Site controller
- */
-class SiteController extends Controller
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+    use common\models\Category;
+    use common\models\Offer;
+    use Yii;
+    use yii\web\Controller;
+    use yii\web\NotFoundHttpException;
 
     /**
-     * @inheritdoc
+     * Site controller
      */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
+    class SiteController extends Controller{
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        /**
+         * @inheritdoc
+         */
+        public function actions(){
+            return [
+                'error' => [
+                    'class' => 'yii\web\ErrorAction'
+                ]
+            ];
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return mixed
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return mixed
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+        /**
+         * Displays homepage.
+         *
+         * @return mixed
+         */
+        public function actionIndex(){
+            $categories = Category::find()->all();
+            $availableCategories = [];
+    
+            if(!empty($categories)){
+                foreach($categories as $category){
+                    if($category->translation){
+                        $availableCategories[] = $category;
+                    }
                 }
             }
+            
+            return $this->render('index', ['categories' => $availableCategories]);
         }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+        public function actionCatalog($categoryId = null){
+            $allCategories = Category::find()->all();
+            if(!is_null($categoryId)){
+                $currentCategory = $this->findModel('category', 'id', $categoryId);
+            }else{
+                $currentCategory = $allCategories[0];
             }
+            
+            return $this->render('catalog', ['categories' => $allCategories, 'currentCategory' => $currentCategory]);
         }
 
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
+        public function actionOffer($id){
+            $model = $this->findModel('offer', 'id', $id);
+            if(!$model->translation){
+                throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist'));
+            }
+            return $this->render('offer', ['offer' => $model]);
+        }
+        /**
+         * @param string $modelName
+         * @param string $attribute
+         * @param string $value
+         *
+         * @return Category | Offer | Product
+         * @throws NotFoundHttpException
+         */
+        public function findModel($modelName, $attribute, $value){
+            $modelName = '\common\models\\'.ucfirst($modelName);
+            $model     = (new $modelName())->findOne([$attribute => $value]);
+            if(is_null($model)){
+                throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist'));
+            }
+        
+            return $model;
+        }
     }
-
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password was saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
-            'model' => $model,
-        ]);
-    }
-}

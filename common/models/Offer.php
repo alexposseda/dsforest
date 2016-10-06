@@ -173,4 +173,16 @@
                            ->removeFile($cover[0]);
             }
         }
+        public function getAvailableProducts(){
+            $products = $this->products;
+            $availableProducts = [];
+            if(!empty($products)){
+                foreach($products as $product){
+                    if($product->translation){
+                        $availableProducts[] = $product;
+                    }
+                }
+            }
+            return $availableProducts;
+        }
     }
