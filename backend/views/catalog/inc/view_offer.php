@@ -7,6 +7,15 @@
     use yii\alexposseda\fileManager\FileManager;
     use yii\helpers\Url;
     
+    $this->params['breadcrumbs'][] = [
+        'label' => (!empty($model->category->title)) ? Yii::t('app', 'Category').': '.$model->category->title : Yii::t('app', 'Category').': '.$model->category->id,
+        'url' => Url::to([
+                             'catalog/view-category',
+                             'id' => $model->category->id
+                         ])
+    ];
+    $this->params['breadcrumbs'][] = Yii::t('app', 'Offer').': '.$this->title;
+    
     $offerCover   = json_decode($model->cover);
     $offerGallery = json_decode($model->gallery);
 ?>
@@ -52,7 +61,7 @@
                                           'id' => $model->id
                                       ]) ?>"
                     data-method="POST"
-                    data-confirm="<?= Yii::t('app/info', 'Removing an offer will delete all the related products. You confirm the removal?') ?>"
+                    data-confirm="<?= Yii::t('info', 'Removing an offer will delete all the related products. You confirm the removal?') ?>"
                 ><?= Yii::t('app', 'Delete Offer') ?></a>
             </div>
             <h1><?= $model->title ?></h1>
@@ -67,10 +76,10 @@
                     </div>
                 </div>
             <?php else: ?>
-                <div class="alert alert-warning"><?= Yii::t('app/error', 'Advantages not found') ?></div>
+                <div class="alert alert-warning"><?= Yii::t('error', 'Advantages not found') ?></div>
             <?php endif; ?>
             <?php if(empty($model->products)): ?>
-                <div class="alert alert-info"><?= Yii::t('app/info', 'No products found') ?></div>
+                <div class="alert alert-info"><?= Yii::t('info', 'No products found') ?></div>
             <?php else: ?>
                 <div class="row well well-sm">
                     <h3><?= Yii::t('app', 'Products') ?></h3>
@@ -81,7 +90,7 @@
                         foreach($products as $prod):
                             ?>
                             <div class="col-lg-4">
-                                <?= $this->render('inc/_product', ['product' => $prod]) ?>
+                                <?= $this->render('_productInCategory', ['model' => $prod]) ?>
                             </div>
                             <?php
                         endforeach;
@@ -89,7 +98,7 @@
                 </div>
             <?php endif; ?>
         <?php else: ?>
-            <div class="alert alert-danger"><?= Yii::t('app/error', 'No data for this language') ?></div>
+            <div class="alert alert-danger"><?= Yii::t('error', 'No data for this language') ?></div>
         <?php endif; ?>
         <?php if(!empty($offerGallery)): ?>
             <div class="panel panel-primary">
@@ -113,7 +122,7 @@
                 </div>
             </div>
         <?php else: ?>
-            <div class="alert alert-info"><?= Yii::t('app/info', 'Gallery is Empty') ?></div>
+            <div class="alert alert-info"><?= Yii::t('info', 'Gallery is Empty') ?></div>
         <?php endif; ?>
     </div>
     <div class="col-lg-2">

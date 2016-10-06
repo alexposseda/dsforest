@@ -6,7 +6,7 @@
     use yii\alexposseda\fileManager\FileManager;
     use yii\helpers\Url;
     
-    $this->params['breadcrumbs'][] = $this->title;
+    $this->params['breadcrumbs'][] = Yii::t('app', 'Category').': '.$this->title;
     
     $categoryCover = json_decode($model->cover);
 ?>
@@ -53,14 +53,14 @@
                                               'id' => $model->id
                                           ]) ?>"
                         data-method="POST"
-                        data-confirm="<?= Yii::t('app/info',
+                        data-confirm="<?= Yii::t('info',
                                                  'Removing a category will delete all the related products and offers. You confirm the removal?') ?>"
                     ><?= Yii::t('app', 'Delete Category') ?></a>
                 </div>
                 <?php if($model->isAvailableTranslate(Yii::$app->language)): ?>
                     <h1><?= $model->title ?></h1>
                     <?php if(empty($model->offers)): ?>
-                        <div class="alert alert-info"><?= Yii::t('app/info', 'No offers found') ?></div>
+                        <div class="alert alert-info"><?= Yii::t('info', 'No offers found') ?></div>
                     <?php else: ?>
                         <?php
                         $offers = $model->getOffers()
@@ -68,7 +68,7 @@
                                         ->all();
                         foreach($offers as $offer):
                             ?>
-                            <?= $this->render('inc/_offer', ['offer' => $offer]) ?>
+                            <?= $this->render('_offerInCategory', ['model' => $offer]) ?>
                             <?php
                         endforeach;
                         ?>
@@ -76,7 +76,7 @@
                 <?php else: ?>
                     <div class="clearfix"></div>
                     <br>
-                    <div class="alert alert-danger"><?= Yii::t('app/error', 'No data for this language!') ?></div>
+                    <div class="alert alert-danger"><?= Yii::t('error', 'No data for this language!') ?></div>
                 <?php endif; ?>
             </div>
             <div class="col-lg-2 text-center available-lang">

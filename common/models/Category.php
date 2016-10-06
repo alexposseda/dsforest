@@ -5,6 +5,7 @@
     use common\components\AvailableLangs;
     use common\components\MultiLangBehavior;
     use Yii;
+    use yii\alexposseda\fileManager\FileManager;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
     
@@ -25,7 +26,7 @@
                 'ml'                => [
                     'class'           => MultiLangBehavior::className(),
                     'languages'       => Lang::getLanguagesAsCodeTitle(),
-                    'defaultLanguage' => Yii::$app->sourceLanguage,
+                    'defaultLanguage' => Yii::$app->language,
                     'langForeignKey'  => 'categoryId',
                     'tableName'       => "{{%category_lang}}",
                     'attributes'      => [
@@ -101,4 +102,27 @@
         public function getOffers(){
             return $this->hasMany(Offer::className(), ['categoryId' => 'id']);
         }
+        
+        public function afterSave($insert, $changedAttributes){
+            parent::afterSave($insert, $changedAttributes);
+            $cover = json_decode($this->cover);
+            if(!empty($cover)){
+                FileManager::getInstance()
+                           ->removeFromSession($cover[0]);
+            }
+            
+            return parent::afterSave($insert, $changedAttributes);
+        }
+        
+        public function beforeDelete(){
+            foreach($this->offers as $offer){
+                $offer->deleteGalleryAndCover();
+            }
+            if(!empty($this->cover)){
+                FileManager::getInstance()
+                           ->removeFile(json_decode($this->cover)[0]);
+            }
+            return parent::beforeDelete();
+        }
+    
     }

@@ -2,8 +2,10 @@
     
     namespace common\models;
     
-    use omgdef\multilingual\MultilingualBehavior;
+    use common\components\AvailableLangs;
+    use common\components\MultiLangBehavior;
     use Yii;
+    use yii\alexposseda\fileManager\FileManager;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
     
@@ -23,16 +25,16 @@
         public function behaviors(){
             return [
                 'ml' => [
-                    'class'           => MultilingualBehavior::className(),
+                    'class'           => MultiLangBehavior::className(),
                     'languages'       => Lang::getLanguagesAsCodeTitle(),
-                    'defaultLanguage' => Yii::$app->sourceLanguage,
+                    'defaultLanguage' => Yii::$app->language,
                     'langForeignKey'  => 'productId',
                     'tableName'       => "{{%product_lang}}",
                     'attributes'      => [
                         'title'
                     ]
                 ],
-                [
+                'timestampBehavior' => [
                     'class'      => TimestampBehavior::className(),
                     'attributes' => [
                         ActiveRecord::EVENT_BEFORE_INSERT => [
@@ -41,6 +43,9 @@
                         ],
                         ActiveRecord::EVENT_BEFORE_UPDATE => ['updatedAt'],
                     ]
+                ],
+                'availableLangs'    => [
+                    'class' => AvailableLangs::className(),
                 ]
             ];
         }
@@ -58,6 +63,11 @@
         public function rules(){
             return [
                 [
+                    'title',
+                    'default',
+                    'value' => null
+                ],
+                [
                     [
                         'offerId',
                         'createdAt',
@@ -66,14 +76,7 @@
                     'integer'
                 ],
                 [
-                    [
-                        'createdAt',
-                        'updatedAt'
-                    ],
-                    'required'
-                ],
-                [
-                    ['cover'],
+                    ['cover', 'title'],
                     'string',
                     'max' => 255
                 ],
@@ -106,5 +109,27 @@
         public function getOffer(){
             return $this->hasOne(Offer::className(), ['id' => 'offerId']);
         }
+    
+        public function afterSave($insert, $changedAttributes){
+            $cover = json_decode($this->cover);
+            if(!empty($cover)){
+                FileManager::getInstance()
+                           ->removeFromSession($cover[0]);
+            }
         
+            return parent::afterSave($insert, $changedAttributes);
+        }
+    
+        public function beforeDelete(){
+            $this->deleteCover();
+        
+            return parent::beforeDelete();
+        }
+        public function deleteCover(){
+            $cover = json_decode($this->cover);
+            if(!empty($cover)){
+                FileManager::getInstance()
+                           ->removeFile($cover[0]);
+            }
+        }
     }

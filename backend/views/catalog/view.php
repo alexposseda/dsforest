@@ -5,6 +5,9 @@
      * @var string                                         $file    view file name
      */
     $this->title = $model->title;
+    if(empty($this->title)){
+        $this->title = Yii::t('error', 'Empty title');
+    }
 ?>
 
 <?= $this->render('inc/view_'.$file, ['model' => $model])?>

@@ -17,15 +17,19 @@ return [
         ],
         'i18n' => [
             'translations' => [
-                'app*' => [
+                'app' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@common/translations',
-                    'fileMap' => [
-                        'app'       => 'app.php',
-                        'app/error' => 'error.php',
-                    ],
                 ],
-                'category' => [
+                'info' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/translations'
+                ],
+                'error' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/translations'
+                ],
+                'success' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@common/translations'
                 ],

@@ -10,6 +10,8 @@
     use yii\bootstrap\Tabs;
     use yii\helpers\Url;
     
+    
+    
     $tabItems       = [];
     $necessaryLangs = $model->necessaryLangs;
     $languages      = Lang::getLanguagesAsCodeTitle();
@@ -19,25 +21,26 @@
     <div class="col-lg-9">
         <?php
             if($model->isNewRecord){
-                foreach($necessaryLangs as $index => $langModel){
+                foreach($necessaryLangs as $langModel){
                     $tabItems[] = [
                         'label'   => $languages[$langModel->language],
                         'content' => $form->field($model,
-                                                  ($langModel->language == Yii::$app->sourceLanguage) ? 'title' : 'title_'.$langModel->language)
+                                                  ($langModel->language == Yii::$app->language) ? 'title' : 'title_'.$langModel->language)
                                           ->label(Yii::t('app', 'Title', [], $langModel->language)),
                         'active'  => (Yii::$app->language == $langModel->language) ? true : false,
                     ];
                 }
             }else{
-                foreach($necessaryLangs as $index => $langModel){
+                foreach($necessaryLangs as $langModel){
                     $tabItems[] = [
                         'label'   => $languages[$langModel->language],
                         'content' => $form->field($model,
-                                                  ($langModel->language == Yii::$app->sourceLanguage) ? 'title' : 'title_'.$langModel->language)
+                                                  ($langModel->language == Yii::$app->language) ? 'title' : 'title_'.$langModel->language)
                                           ->textInput(['value' => $langModel->title])
                                           ->label(Yii::t('app', 'Title', [], $langModel->language)),
                         'active'  => (Yii::$app->language == $langModel->language) ? true : false,
                     ];
+                    
                 }
             }
         ?>
