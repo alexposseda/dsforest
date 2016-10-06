@@ -8,5 +8,11 @@
         'To add in other languages, you must' => 'Для добавления предложения на других языках, необходимо',
         'Gallery is empty' => 'Галерея пустая',
         'Products for this offer is not found' => 'Продуктов для этого предложения не найдено',
-        'You confirm the removal?' => 'Вы подверждаете удаление?'
+        'You confirm the removal?' => 'Вы подверждаете удаление?',
+        'Please fill out the following fields to login:' => 'Пожалуйста, заполните следующие поля для входа:',
+        'Please fill out your email. A link to reset password will be sent there.' => 'Пожалуйста, заполните вашу электронную почту. Ссылка для сброса пароля будет отправлена туда.',
+        'Check your email for further instructions.' => 'Проверьте свою электронную почту для получения дальнейших инструкций',
+        'Sorry, we are unable to reset password for your email.' => 'К сожалению, мы не можем сбросить пароль для вашей электронной почты',
+        'Please choose your new password:' => 'Пожалуйста введите Ваш новый пароль'
+        
     ];

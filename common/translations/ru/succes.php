@@ -9,4 +9,5 @@
         'Product successfully created'  => 'Продукт успешно создан',
         'Product successfully updated'  => 'Продукт успешно обновлен',
         'Product successfully deleted'  => 'Продукт успешно удален',
+        'New password was saved.' => 'Новый пароль был сохранен'
     ];

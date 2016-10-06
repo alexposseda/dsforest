@@ -26,5 +26,12 @@
         'Logout'          => 'Выход',
         'Advantages'      => 'Преимущества',
         'Update' => 'Обновить',
-        'Create' => 'Создать'
+        'Create' => 'Создать',
+        'User Name' => 'Имя пользователя',
+        'Password' => 'Пароль',
+        'Remember Me' => 'Запомнить меня',
+        'Request password reset' => 'Запрос на сброс пароля',
+        'Send' => 'Отправить',
+        'Save' => 'Сохранить',
+        'Reset password' => 'Сброс пароля'
     ];
