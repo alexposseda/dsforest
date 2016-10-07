@@ -326,13 +326,13 @@ main {
     .section .title.subtitle {
         text-align: left;
         padding: 0.75rem 0 0.75rem 0.75rem;
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 }
 
 @media screen and (min-width: 992px) {
     .section .title.subtitle {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 }
 
@@ -399,6 +399,9 @@ main {
     padding: 1rem 0;
     z-index: 3;
 }
+.section .title.clon a{
+    color: inherit;
+}
 
 @media screen and (min-width: 600px) {
     .title.clon {
@@ -409,12 +412,6 @@ main {
 @media screen and (min-width: 768px) {
     .title.clon {
         font-size: 2.5rem;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .title.clon {
-        font-size: 3.56rem;
     }
 }
 
@@ -436,13 +433,13 @@ main {
     .subtitle.clon {
         text-align: left;
         padding: 0.75rem 0 0.75rem 0.75rem;
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 }
 
 @media screen and (min-width: 992px) {
     .subtitle.clon {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 }
 
