@@ -10,6 +10,8 @@
 
     OfferPageAsset::register($this);
     $gallery = json_decode($offer->gallery);
+
+    $this->title = $offer->title;
 ?>
 <section class="section no-padding offer line">
     <h2 class="black white-text title subtitle no-margin" id="catalog-title">
