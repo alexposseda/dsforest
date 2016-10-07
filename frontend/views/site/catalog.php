@@ -9,7 +9,7 @@
     $this->title = Yii::t('app', 'Catalog');
 ?>
 <section class="section catalog no-padding">
-    <h2 class="black white-text title subtitle no-margin truncate" id="catalog-title"><span class="hide-on-small-only"><?= Yii::t('app', 'Catalog') ?>
+    <h2 class="black white-text title subtitle no-margin truncate" id="catalog-title"><span class="hide-on-small-only"><a href="<?= Url::to(['site/catalog'])?>"><?= Yii::t('app', 'Catalog') ?></a>
             <i class="material-icons">navigate_next</i></span>
         <?= $currentCategory->title ?></h2>
     <div class="row">
