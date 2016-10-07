@@ -456,6 +456,7 @@ main {
 }
 .catalog .card-medium .card-image{
     height: 100%;
+    background-color: #000;
 }
 .catalog .card-title {
     background-color: rgba(0, 0, 0, 0.85);
