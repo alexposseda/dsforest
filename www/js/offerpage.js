@@ -36,9 +36,9 @@ var showStaggeredList = true;
 $(window).on('scroll', function(){
     var h = 0;
     $('.line').each(function(){
-        h += $(this).height();
+        h += $(this).outerHeight();
     });
-    if(h > ($('#advantage-title').offset().top - $(window).scrollTop() + 200) && showStaggeredList){
+    if(h > ($('#advantage-title').offset().top - $(window).scrollTop() + 100) && showStaggeredList){
         Materialize.showStaggeredList('#advantage-list');
         showStaggeredList = false;
     }
