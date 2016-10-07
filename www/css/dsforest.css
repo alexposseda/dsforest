@@ -80,7 +80,7 @@ main {
 
 @media only screen and (min-width: 993px) {
     .mygrid .col.l2 {
-        width: 33%;
+        width: 25%;
     }
 }
 
@@ -139,15 +139,15 @@ main {
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
     .header {
-        height: 400px;
+        height: 350px;
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1400px) {
     .header {
-        height: 500px;
+        height: 450px;
     }
 }
 
@@ -173,15 +173,15 @@ main {
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
     .header-space {
-        height: 400px;
+        height: 350px;
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1400px) {
     .header-space {
-        height: 500px;
+        height: 450px;
     }
 }
 
@@ -203,6 +203,12 @@ main {
 }
 
 @media only screen and (min-width: 768px) {
+    .header-content img {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+@media only screen and (min-width: 1400px) {
     .header-content img {
         width: 100%;
         max-width: 600px;
@@ -286,7 +292,7 @@ main {
 .section .title {
     margin: 0;
     font-size: 1.6rem;
-    padding: 1rem 0;
+    padding: 0.8rem 0;
 }
 
 @media screen and (min-width: 600px) {
@@ -298,12 +304,6 @@ main {
 @media screen and (min-width: 768px) {
     .section .title {
         font-size: 2.5rem;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .section .title {
-        font-size: 3.56rem;
     }
 }
 

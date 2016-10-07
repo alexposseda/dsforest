@@ -8,7 +8,7 @@
     $productCover = json_decode($model->cover);
 ?>
 <?php if($model->isAvailableTranslate(Yii::$app->language)):?>
-<div class="panel panel-default">
+<div class="panel panel-default small-panel">
     <div class="panel-heading"><h3 class="panel-title text-center"><?= $model->title ?></h3></div>
     <div class="panel-body">
         <?php if(!empty($productCover)): ?>

@@ -19,7 +19,7 @@
                 <?php foreach($models as $category): ?>
                     <div class="col-lg-3">
                         <?php if($category->isAvailableTranslate(Yii::$app->language)): ?>
-                            <div class="panel panel-default">
+                            <div class="panel panel-default small-panel">
                                 <div class="panel-heading"><p class="panel-title"><?= $category->title ?></p></div>
                                 <div class="panel-body">
                                     <div class="category-cover-wrap">

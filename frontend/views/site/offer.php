@@ -6,12 +6,23 @@
 
     use frontend\assets\OfferPageAsset;
     use yii\alexposseda\fileManager\FileManager;
+    use yii\helpers\Url;
 
     OfferPageAsset::register($this);
     $gallery = json_decode($offer->gallery);
 ?>
 <section class="section no-padding offer line">
-    <h2 class="black white-text title center-align no-margin" id="catalog-title"><?= $offer->title ?></h2>
+    <h2 class="black white-text title subtitle no-margin" id="catalog-title">
+        <a href="<?= Url::to(['site/catalog'])?>">
+            <?= Yii::t('app', 'Catalog')?>
+        </a>
+        <i class="material-icons">navigate_next</i>
+        <a href="<?= Url::to(['site/catalog', 'categoryId' => $offer->category->id])?>">
+            <?= $offer->category->title?>
+        </a>
+        <i class="material-icons">navigate_next</i>
+        <?= $offer->title ?>
+    </h2>
     <?php if($offer->availableProducts): ?>
         <div class="row mygrid mygrid mygrid-centered">
             <?php foreach($offer->availableProducts as $product): ?>
@@ -40,7 +51,7 @@
         $advantages = explode("\n", \yii\helpers\Html::encode($offer->advantages));
         ?>
 <section class="section">
-    <h2 class="black white-text title center-align no-margin" id="advantage-title"><?= Yii::t('app', 'Advantages')?></h2>
+    <h2 class="black white-text title subtitle center-align no-margin" id="advantage-title"><?= Yii::t('app', 'Advantages')?></h2>
     <ul class="advantage-list browser-default" id="advantage-list">
         <?php foreach($advantages as $advantage):?>
         <li class="flow-text"><?= $advantage?></li>

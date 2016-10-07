@@ -10,7 +10,7 @@
     $offerGallery = json_decode($model->gallery);
 
 ?>
-<div class="panel panel-default">
+<div class="panel panel-default small-panel">
     <?php if($model->isAvailableTranslate(Yii::$app->language)): ?>
         <div class="panel-heading">
             <a href="<?= Url::to([

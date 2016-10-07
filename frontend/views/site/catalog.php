@@ -10,8 +10,7 @@
 ?>
 <section class="section catalog no-padding">
     <h2 class="black white-text title subtitle no-margin truncate" id="catalog-title"><span class="hide-on-small-only"><?= Yii::t('app', 'Catalog') ?>
-            <i
-                class="material-icons">navigate_next</i></span>
+            <i class="material-icons">navigate_next</i></span>
         <?= $currentCategory->title ?></h2>
     <div class="row">
         <div class="col l2 hide-on-med-and-down">
