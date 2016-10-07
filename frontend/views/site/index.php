@@ -35,7 +35,7 @@
     <?php endif; ?>
 </section>
 <section class="section contacts">
-    <h2 class="black white-text center-align title no-margin" id="contacts-title"><?= Yii::t('app', 'Contacts') ?></h2>
+    <h2 class="black white-text center-align title no-margin" id="contacts"><?= Yii::t('app', 'Contacts') ?></h2>
     <div class="container">
         <div class="row">
             <div class="col s12 m6 l6">
