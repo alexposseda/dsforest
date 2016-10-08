@@ -23,7 +23,7 @@
                             'model' => $category,
                             'url'   => Url::to([
                                                    'site/catalog',
-                                                   'category_id' => $category->id
+                                                   'categoryId' => $category->id
                                                ])
                         ]);
                     endif;

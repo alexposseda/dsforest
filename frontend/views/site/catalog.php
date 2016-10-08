@@ -58,7 +58,7 @@
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
-                <div class="card-panel red-text center-align"><?= Yii::t('info', 'No offer found') ?></div>
+                <div class="card-panel red-text center-align"><?= Yii::t('info', 'No offers found') ?></div>
             <?php endif; ?>
         </div>
     </div>
