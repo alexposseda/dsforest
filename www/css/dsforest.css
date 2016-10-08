@@ -493,6 +493,10 @@ main {
     overflow: hidden;
     position: relative;
 }
+.offer .card-medium .card-image{
+    height: 100%;
+    background-color: #000;
+}
 .card.card-medium .card-image img{
     height: 100%;
     width: auto;
