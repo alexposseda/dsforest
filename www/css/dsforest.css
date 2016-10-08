@@ -493,7 +493,7 @@ main {
     overflow: hidden;
     position: relative;
 }
-.card .card-medium .card-image img{
+.card.card-medium .card-image img{
     height: 100%;
     width: auto;
 }
