@@ -34,7 +34,7 @@ $(document).ready(function(){
 });
 var showStaggeredList = true;
 $(window).on('scroll', function(){
-    if($(window).height() + $(window).scrollTop() > $('#advantage-title').offset().top + $('#advantage-title') && showStaggeredList){
+    if($(window).height() + $(window).scrollTop() > $('#advantage-title').offset().top + $('#advantage-title').height() && showStaggeredList){
         Materialize.showStaggeredList('#advantage-list');
         showStaggeredList = false;
     }
