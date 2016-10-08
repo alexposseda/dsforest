@@ -9,7 +9,7 @@
     $availableLanguages = $model->availableLangs;
 ?>
 <div class="available-lang-holder" data-spy="affix" data-offset-top="60" data-offset-bottom="70">
-    <h6><?= Yii::t('app', 'Available in languages') ?></h6>
+    <h6><?= Yii::t('info', 'Available in languages') ?></h6>
     <div class="list-group">
         <?php foreach($availableLanguages as $lang): ?>
             <?php if($model->isAvailableTranslate($lang->langCode)): ?>
