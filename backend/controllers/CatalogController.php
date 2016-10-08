@@ -1,7 +1,7 @@
 <?php
-    
+
     namespace backend\controllers;
-    
+
     use backend\models\OfferGallery;
     use backend\models\UploadCover;
     use common\models\Category;
@@ -12,7 +12,7 @@
     use yii\filters\AccessControl;
     use yii\web\Controller;
     use yii\web\NotFoundHttpException;
-    
+
     class CatalogController extends Controller{
         public function behaviors(){
             return [
@@ -27,7 +27,7 @@
                 ]
             ];
         }
-        
+
         public function actions(){
             return [
                 'category-upload'    => [
@@ -88,14 +88,14 @@
                 ]
             ];
         }
-        
+
         public function actionIndex(){
             return $this->render('index', [
                 'models' => Category::find()
                                     ->all()
             ]);
         }
-        
+
         #region category
         public function actionViewCategory($id){
             return $this->render('view', [
@@ -103,56 +103,56 @@
                 'file'  => 'category'
             ]);
         }
-        
+
         public function actionCreateCategory(){
             $model = new Category();
-            
+
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
-                
+
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Category successfully created')]);
                 $this->redirect([
                                     'catalog/view-category',
                                     'id' => $model->id
                                 ]);
             }
-            
+
             return $this->render('create', [
                 'model' => $model,
                 'file'  => 'category'
             ]);
         }
-        
+
         public function actionUpdateCategory($id){
             $model = $this->findModel('category', 'id', $id);
-            
+
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
-                
+
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Category successfully updated')]);
-                
+
                 return $this->redirect([
                                            'catalog/view-category',
                                            'id' => $model->id
                                        ]);
             }
-            
+
             return $this->render('update', [
                 'model' => $model,
                 'file'  => 'category'
             ]);
         }
-        
+
         public function actionDeleteCategory($id){
             $model = $this->findModel('category', 'id', $id);
             if($model->delete()){
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Category successfully deleted')]);
-                
+
                 return $this->redirect(['catalog/index']);
             }
-            
+
             Yii::$app->session->set('fl', ['error' => Yii::t('error', 'Failed to delete')]);
-            
+
             return $this->redirect([
                                        'catalog/view-category',
                                        'id' => $id
@@ -163,68 +163,68 @@
         public function actionViewOffer($id){
             $model = $this->findModel('offer', 'id', $id);
             $model->setBaseModel($model->category);
-            
+
             return $this->render('view', [
                 'model' => $model,
                 'file'  => 'offer'
             ]);
         }
-        
+
         public function actionCreateOffer($categoryId){
             $category = $this->findModel('category', 'id', $categoryId);
-            $model    = new Offer(['categoryId' => $category->id]);
+            $model = new Offer(['categoryId' => $category->id]);
             $model->setBaseModel($category);
-            
+
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
-                
+
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Offer successfully created')]);
                 $this->redirect([
                                     'catalog/view-offer',
                                     'id' => $model->id
                                 ]);
             }
-            
+
             return $this->render('create', [
                 'model' => $model,
                 'file'  => 'offer'
             ]);
         }
-        
+
         public function actionUpdateOffer($id){
             $model = $this->findModel('offer', 'id', $id);
             $model->setBaseModel($model->category);
-            
+
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
-                
+
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Offer successfully updated')]);
                 $this->redirect([
                                     'catalog/view-offer',
                                     'id' => $model->id
                                 ]);
             }
-            
+
             return $this->render('update', [
                 'model' => $model,
                 'file'  => 'offer'
             ]);
         }
-        
+
         public function actionDeleteOffer($id){
-            $model      = $this->findModel('offer', 'id', $id);
+            $model = $this->findModel('offer', 'id', $id);
             $categoryId = $model->categoryId;
             if($model->delete()){
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Offer successfully deleted')]);
-                
+
                 return $this->redirect([
                                            'catalog/view-category',
                                            'id' => $categoryId
                                        ]);
             }
-            
+
             Yii::$app->session->set('fl', ['error' => Yii::t('error', 'Failed to delete')]);
-            
+
             return $this->redirect([
                                        'catalog/view-offer',
                                        'id' => $id
@@ -232,76 +232,80 @@
         }
         #endregion
         #region product
-        
+
         public function actionViewProduct($id){
             $model = $this->findModel('product', 'id', $id);
             $model->setBaseModel($model->offer);
-            return $this->render('view', ['model' => $model, 'file' => 'product']);
+
+            return $this->render('view', [
+                'model' => $model,
+                'file'  => 'product'
+            ]);
         }
-        
+
         public function actionCreateProduct($offerId){
             $offer = $this->findModel('offer', 'id', $offerId);
-            $model    = new Product(['offerId' => $offer->id]);
+            $model = new Product(['offerId' => $offer->id]);
             $model->setBaseModel($offer);
-    
+
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
-        
+
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Product successfully created')]);
                 $this->redirect([
                                     'catalog/view-product',
                                     'id' => $model->id
                                 ]);
             }
-    
+
             return $this->render('create', [
                 'model' => $model,
                 'file'  => 'product'
             ]);
         }
-        
+
         public function actionUpdateProduct($id){
             $model = $this->findModel('product', 'id', $id);
             $model->setBaseModel($model->offer);
-    
+
             if($model->load(Yii::$app->request->post()) && $model->validate() && $model->checkLangs()){
                 $model->save();
-        
+
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Product successfully updated')]);
                 $this->redirect([
                                     'catalog/view-product',
                                     'id' => $model->id
                                 ]);
             }
-    
+
             return $this->render('update', [
                 'model' => $model,
                 'file'  => 'product'
             ]);
         }
-        
+
         public function actionDeleteProduct($id){
-            $model      = $this->findModel('product', 'id', $id);
-            $offerId = $model->categoryId;
+            $model = $this->findModel('product', 'id', $id);
+            $offerId = $model->offerId;
             if($model->delete()){
                 Yii::$app->session->set('fl', ['success' => Yii::t('success', 'Product successfully deleted')]);
-        
+
                 return $this->redirect([
                                            'catalog/view-offer',
                                            'id' => $offerId
                                        ]);
             }
-    
+
             Yii::$app->session->set('fl', ['error' => Yii::t('error', 'Failed to delete')]);
-    
+
             return $this->redirect([
                                        'catalog/view-product',
                                        'id' => $id
                                    ]);
         }
-        
+
         #endregion
-        
+
         public function beforeAction($action){
             $messages = Yii::$app->session->get('fl');
             if(!empty($messages)){
@@ -310,10 +314,10 @@
                 }
                 Yii::$app->session->remove('fl');
             }
-            
+
             return parent::beforeAction($action);
         }
-        
+
         /**
          * @param string $modelName
          * @param string $attribute
@@ -324,11 +328,11 @@
          */
         public function findModel($modelName, $attribute, $value){
             $modelName = '\common\models\\'.ucfirst($modelName);
-            $model     = (new $modelName())->findOne([$attribute => $value]);
+            $model = (new $modelName())->findOne([$attribute => $value]);
             if(is_null($model)){
                 throw new NotFoundHttpException(Yii::t('error', 'The requested page does not exist'));
             }
-            
+
             return $model;
         }
     }
