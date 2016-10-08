@@ -131,6 +131,7 @@ main {
     background: url(../img/forest_bg.jpg) no-repeat;
     background-size: cover;
     height: 260px;
+    background-position: center bottom;
 }
 
 @media only screen and (min-width: 601px) {
