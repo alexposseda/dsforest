@@ -493,7 +493,10 @@ main {
     overflow: hidden;
     position: relative;
 }
-
+.card .card-medium .card-image img{
+    height: 100%;
+    width: auto;
+}
 .contacts h3 {
     font-size: 1.4rem;
     font-weight: 400;
