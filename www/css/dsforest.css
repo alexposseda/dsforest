@@ -511,11 +511,7 @@ main {
     font-weight: 400;
 }
 
-.contacts .col:first-child {
-    text-align: center;
-}
-
-.contacts .col:last-child {
+.contacts .col{
     text-align: center;
 }
 
@@ -530,14 +526,6 @@ main {
 
     .contacts h4 {
         font-size: 1.6rem;
-    }
-
-    .contacts .col:first-child {
-        text-align: left;
-    }
-
-    .contacts .col:last-child {
-        text-align: right;
     }
 }
 

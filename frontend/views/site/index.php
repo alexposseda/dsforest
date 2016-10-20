@@ -38,31 +38,15 @@
     <h2 class="black white-text center-align title no-margin" id="contacts"><?= Yii::t('app', 'Contacts') ?></h2>
     <div class="container">
         <div class="row">
-            <div class="col s12 m6 l6">
-                <h3>Представительство в Украине</h3>
-                <p class="address flow-text">"ГК Форест" Украина,<br>65007 г.Одесса,<br>Болгарская 20</p>
-                <div class="info">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
-                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
-                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
-                        <li class="flow-text"><i class="material-icons">email</i> example@mail.com</li>
-                        <li class="flow-text"><i class="material-icons">link</i> www.example.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col s12 m6 l6">
+            <div class="col s12">
                 <h3>Представительство в Чехии</h3>
-                <p class="address flow-text">"ГК Форест" Украина,<br>65007 г.Одесса,<br>Болгарская 20</p>
+                <p class="address flow-text">"DS Forest Trade" S.R.O.,<br>Czech Republic, Prague,<br>Vojtesska 211/6
+                    Nove Mesto 11000 Prague 1 CR</p>
                 <div class="info">
                     <h4>Контакты</h4>
                     <ul>
-                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
-                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
-                        <li class="flow-text"><i class="material-icons">phone</i> +38 048 788 18 51</li>
-                        <li class="flow-text"><i class="material-icons">email</i> example@mail.com</li>
-                        <li class="flow-text"><i class="material-icons">link</i> www.example.com</li>
+                        <li class="flow-text"><i class="material-icons">phone</i> +42 077 635 77 27</li>
+                        <li class="flow-text"><i class="material-icons">email</i> info@dsft.eu</li>
                     </ul>
                 </div>
             </div>
