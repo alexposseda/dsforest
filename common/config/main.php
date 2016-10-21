@@ -1,5 +1,6 @@
 <?php
 return [
+    'name' => 'DsForestTrade',
     'language' => 'en',
     'sourceLanguage' => 'en',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
