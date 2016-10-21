@@ -60,6 +60,7 @@
                 ],
             ];
         }
+        
         /**
          * Login action.
          *
@@ -93,7 +94,8 @@
                     
                     return $this->goHome();
                 }else{
-                    Yii::$app->session->setFlash('error', Yii::t('error', 'Sorry, we are unable to reset password for your email.'));
+                    Yii::$app->session->setFlash('error', Yii::t('error',
+                                                                 'Sorry, we are unable to reset password for your email.').'Error code: '.$model->mailerError);
                 }
             }
             

@@ -1,6 +1,8 @@
 <?php
 namespace backend\models;
 
+use Swift_Plugins_LoggerPlugin;
+use Swift_Plugins_Loggers_ArrayLogger;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -11,6 +13,7 @@ use common\models\User;
 class PasswordResetRequestForm extends Model
 {
     public $email;
+    public $mailerError;
 
 
     /**
@@ -59,16 +62,21 @@ class PasswordResetRequestForm extends Model
                 return false;
             }
         }
-
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Password reset for ' . Yii::$app->name)
-            ->send();
+    
+        $mailer = Yii::$app->get('mailer');
+        $message = $mailer->compose(
+            ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
+            ['user' => $user]
+        )
+                          ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+                          ->setTo($this->email)
+                          ->setSubject('Password reset for ' . Yii::$app->name);
+        $logger = new Swift_Plugins_Loggers_ArrayLogger();
+        $mailer->getSwiftMailer()->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
+        if (!$message->send()) {
+            $this->mailerError = $logger->dump();
+            return false;
+        }
+        return true;
     }
 }
