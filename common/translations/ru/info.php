@@ -17,6 +17,7 @@
         'Please choose your new password:'                                                              => 'Пожалуйста введите Ваш новый пароль',
         'By developing our technology, we are promoting your business'                                  => 'Развивая наши технологии мы продвигаем свой бизнес',
         'A wide range of wood products'                                                                 => 'Широкий выбор деревянных изделий',
-        'Available in languages' => 'Доступность на языках'
-    
+        'Available in languages'                                                                        => 'Доступность на языках',
+        'Representation in the Czech Republic'                                                          => 'Представительство в Чехии'
+
     ];

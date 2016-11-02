@@ -39,11 +39,11 @@
     <div class="container">
         <div class="row">
             <div class="col s12">
-                <h3>Представительство в Чехии</h3>
+                <h3><?= Yii::t('info', 'Representation in the Czech Republic')?></h3>
                 <p class="address flow-text">"DS Forest Trade" S.R.O.,<br>Czech Republic, Prague,<br>Vojtesska 211/6
                     Nove Mesto 11000 Prague 1 CR</p>
                 <div class="info">
-                    <h4>Контакты</h4>
+                    <h4><?= Yii::t('app', 'Contacts')?></h4>
                     <ul>
                         <li class="flow-text"><i class="material-icons">phone</i> +42 077 635 77 27</li>
                         <li class="flow-text"><i class="material-icons">email</i> info@dsft.eu</li>
